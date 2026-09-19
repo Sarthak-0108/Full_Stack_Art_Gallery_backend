@@ -12,6 +12,14 @@ app.use(express.json())
 const storage = multer.memoryStorage();
 const upload = multer({ storage })
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        uptime: process.uptime(),
+        timestamp: new Date.toISOString()
+    })
+})
+
 app.post('/create-post', upload.single("imageUrl"), async (req, res) => {
     try {
         const data = req.body;
